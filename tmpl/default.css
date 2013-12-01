@@ -1,0 +1,95 @@
+.mod_wow_raid_progress_cata ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mod_wow_raid_progress_cata li {
+    margin: 0;
+    padding: 0;
+}
+
+.mod_wow_raid_progress_cata .npcs {
+    display: none;
+}
+
+.mod_wow_raid_progress_cata .npc {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0px;
+}
+
+.mod_wow_raid_progress_cata .npc:last-child {
+    border-bottom: none;
+}
+
+.mod_wow_raid_progress_cata .npcs.open {
+    display: block;
+}
+
+.mod_wow_raid_progress_cata .header {
+    position: relative;
+    margin-top: 5px;
+    height: 35px;
+    padding-top: 15px;
+    cursor: pointer;
+}
+
+.mod_wow_raid_progress_cata .header,
+.mod_wow_raid_progress_cata a {
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+    font-weight: bolder;
+    padding-left: 3px;
+}
+
+.mod_wow_raid_progress_cata .header .p {
+    position: absolute;
+    display: block;
+    height: 5px;
+    background: forestgreen;
+    top: 0;
+    left: 0;
+}
+
+.mod_wow_raid_progress_cata .header .k {
+    float: right;
+    padding: 3px;
+}
+
+.mod_wow_raid_progress_cata .normal,
+.mod_wow_raid_progress_cata .heroic {
+    display: inline-block;
+    float: right;
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.mod_wow_raid_progress_cata .normal {
+    background-image: url('./images/normal.png');
+}
+
+.mod_wow_raid_progress_cata .heroic {
+    background-image: url('./images/heroic.png');
+}
+
+.mod_wow_raid_progress_cata .z5892 {
+    background: url('images/z5892.jpg') no-repeat top left;
+}
+
+.mod_wow_raid_progress_cata .z5723 {
+    background: url('images/z5723.jpg') no-repeat top left;
+}
+
+.mod_wow_raid_progress_cata .z5334 {
+    background: url('images/z5334.jpg') no-repeat top left;
+}
+
+.mod_wow_raid_progress_cata .z5638 {
+    background: url('images/z5638.jpg') no-repeat top left;
+}
+
+.mod_wow_raid_progress_cata .z5094 {
+    background: url('images/z5094.jpg') no-repeat top left;
+}
