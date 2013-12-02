@@ -400,8 +400,6 @@ final class mod_wow_raid_progress_cata
                 }
             }
         }
-        //$this->generateXML();
-        //$this->generateINI();
     }
 
     private function link($link, $id, $npc = false)
@@ -417,55 +415,5 @@ final class mod_wow_raid_progress_cata
         }
 
         return $sites[$this->params->get('link')];
-    }
-
-    private function generateINI()
-    {
-
-        header("Content-type: text/plain; charset=utf-8");
-
-        foreach ($this->raids as $zoneId => &$zone) {
-
-            echo strtoupper(__CLASS__) . '_ZONE_' . $zoneId . ' = ""' . PHP_EOL;
-
-            foreach ($zone['npcs'] as $npcId => &$npc) {
-                echo strtoupper(__CLASS__) . '_NPC_' . $npcId . ' = ""' . PHP_EOL;
-            }
-
-            echo PHP_EOL;
-        }
-
-        exit;
-    }
-
-    private function generateXML()
-    {
-        header("Content-type: text/xml; charset=utf-8");
-
-        $xml = new SimpleXMLElement('<fieldset />');
-        $xml->addAttribute('name', 'adjustments');
-
-        $options = array('auto', 'no', 'normal', 'heroic');
-
-        foreach ($this->raids as $zoneId => &$zone) {
-            $spacer = $xml->addChild('field');
-            $spacer->addAttribute('type', 'spacer');
-            $spacer->addAttribute('class', 'label');
-            $spacer->addAttribute('label', strtoupper(__CLASS__) . '_ZONE_' . $zoneId);
-            foreach ($zone['npcs'] as $npcId => &$npc) {
-                $adjust = $xml->addChild('field');
-                $adjust->addAttribute('name', 'adjust_' . $npcId);
-                $adjust->addAttribute('default', 'auto');
-                $adjust->addAttribute('type', 'radio');
-                $adjust->addAttribute('class', 'btn-group');
-                $adjust->addAttribute('label', strtoupper(__CLASS__) . '_NPC_' . $npcId);
-                foreach ($options as $option) {
-                    $child = $adjust->addChild('option', strtoupper(__CLASS__ . '_RAID_' . $option));
-                    $child->addAttribute('value', $option);
-                }
-            }
-        }
-
-        exit($xml->asXML());
     }
 }

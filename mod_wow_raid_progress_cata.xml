@@ -20,6 +20,9 @@
         <language tag="de-DE">de-de/de-DE.mod_wow_raid_progress_cata.ini</language>
         <language tag="de-DE">de-de/de-DE.mod_wow_raid_progress_cata.sys.ini</language>
     </languages>
+    <updateservers>
+        <server type="collection" priority="1" name="z-index development">http://www.z-index.net/en/extensions.xml</server>
+    </updateservers>
     <config>
         <fields name="params">
             <fieldset name="basic">
@@ -35,7 +38,7 @@
                     <option value="es">Español</option>
                     <option value="it">Italiano</option>
                     <option value="pt">Português</option>
-                    <option value="ru">???????</option>
+                    <option value="ru">Русский</option>
                 </field>
                 <field name="link" type="list" default="battle.net" required="true" label="MOD_WOW_RAID_PROGRESS_CATA_LINK_LABEL">
                     <option value="battle.net">battle.net</option>
@@ -198,7 +201,7 @@
                 <field name="adjust_45213" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_CATA_NPC_45213">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_CATA_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_CATA_RAID_NO</option>
-                    <!--<option value="normal">MOD_WOW_RAID_PROGRESS_CATA_RAID_NORMAL</option>-->
+                    <!--<option value="normal">MOD_WOW_RAID_PROGRESS_CATA_RAID_NORMAL</option> -->
                     <option value="heroic">MOD_WOW_RAID_PROGRESS_CATA_RAID_HEROIC</option>
                 </field>
                 <field type="spacer" class="label" label="MOD_WOW_RAID_PROGRESS_CATA_ZONE_5638" />
@@ -258,7 +261,4 @@
             </fieldset>
         </fields>
     </config>
-    <updateservers>
-        <server type="collection" priority="1" name="z-index development">http://www.z-index.net/en/extensions.xml</server>
-    </updateservers>
 </extension>
