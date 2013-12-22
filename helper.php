@@ -297,7 +297,7 @@ final class mod_wow_raid_progress_cata
 
         if (!$result = $cache->get($key)) {
             try {
-                $http = new JHttp(new JRegistry, new JHttpTransportCurl(new JRegistry));
+                $http = JHttpFactory::getHttp();
                 $http->setOption('userAgent', 'Joomla! ' . JVERSION . '; WoW Raid Progress - Cata; php/' . phpversion());
 
                 $result = $http->get($url, null, $this->params->get('timeout', 10));
