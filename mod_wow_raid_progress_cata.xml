@@ -3,7 +3,7 @@
     <name>MOD_WOW_RAID_PROGRESS_CATA</name>
     <author>Branko Wilhelm</author>
     <creationDate>Nov 2013</creationDate>
-    <copyright>(C) 2013 Branko Wilhelm</copyright>
+    <copyright>(C) 2013 - 2014 Branko Wilhelm</copyright>
     <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
     <authorEmail>branko.wilhelm@gmail.com</authorEmail>
     <authorUrl>www.z-index.net</authorUrl>
@@ -12,6 +12,7 @@
     <files>
         <filename module="mod_wow_raid_progress_cata">mod_wow_raid_progress_cata.php</filename>
         <filename>helper.php</filename>
+        <folder>fields</folder>
         <folder>tmpl</folder>
     </files>
     <scriptfile>script.installer.php</scriptfile>
@@ -25,7 +26,7 @@
         <server type="collection" priority="1" name="z-index development">http://www.z-index.net/en/extensions.xml</server>
     </updateservers>
     <config>
-        <fields name="params">
+        <fields name="params" addfieldpath="/modules/mod_wow_raid_progress_cata/fields/">
             <fieldset name="basic">
                 <field name="mode" type="radio" class="btn-group" default="manual" required="true" label="MOD_WOW_RAID_PROGRESS_CATA_MODE_LABEL">
                     <option value="manual">MOD_WOW_RAID_PROGRESS_CATA_MODE_MANUAL</option>
@@ -60,6 +61,11 @@
                     <option value="5638">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5638</option>
                     <option value="5094">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5094</option>
                 </field>
+                <field name="ajax" type="ajax" class="btn-group" label="Ajax" default="0" />
+            </fieldset>
+            <fieldset name="advanced">
+                <field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+                <field name="moduleclass_sfx" type="text" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
             </fieldset>
             <fieldset name="auto">
                 <field name="guild" type="text" default="" size="30" label="MOD_WOW_RAID_PROGRESS_CATA_GUILD_LABEL" />
@@ -255,10 +261,6 @@
                     <option value="normal">MOD_WOW_RAID_PROGRESS_CATA_RAID_NORMAL</option>
                     <option value="heroic">MOD_WOW_RAID_PROGRESS_CATA_RAID_HEROIC</option>
                 </field>
-            </fieldset>
-            <fieldset name="advanced">
-                <field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
-                <field name="moduleclass_sfx" type="text" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
             </fieldset>
         </fields>
     </config>
