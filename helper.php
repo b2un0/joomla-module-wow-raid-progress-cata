@@ -216,7 +216,32 @@ final class ModWowRaidProgressCataHelper
                     'heroic' => 5116
                 )
             )
-        )
+        ),
+        // Baradin Hold
+        5600 => array(
+            'link' => 'zone/baradin-hold/',
+            'stats' => array('kills' => 0, 'mode' => 'normal'),
+            'npcs' => array(
+                // Argaloth
+                47120 => array(
+                    'link' => 'zone/baradin-hold/argaloth',
+                    'normal' => 15480,
+                    'heroic' => null
+                ),
+                // Occu'thar
+                52363 => array(
+                    'link' => 'zone/baradin-hold/occuthar',
+                    'normal' => 18478,
+                    'heroic' => null
+                ),
+                // Alizabal
+                55869 => array(
+                    'link' => 'zone/baradin-hold/alizabal',
+                    'normal' => 18479,
+                    'heroic' => null
+                )
+            )
+        ),
     );
 
     private function __construct(JRegistry &$params)

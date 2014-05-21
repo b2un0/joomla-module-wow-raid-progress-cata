@@ -53,6 +53,7 @@
                     <option value="5334">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5334</option>
                     <option value="5638">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5638</option>
                     <option value="5094">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5094</option>
+                    <option value="5600">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5600</option>
                 </field>
                 <field name="hide" type="list" default="" multiple="true" label="MOD_WOW_RAID_PROGRESS_CATA_HIDE_LABEL" description="MOD_WOW_RAID_PROGRESS_CATA_HIDE_DESC">
                     <option value="5892">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5892</option>
@@ -60,6 +61,8 @@
                     <option value="5334">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5334</option>
                     <option value="5638">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5638</option>
                     <option value="5094">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5094</option>
+                    <option value="5600">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5600</option>
+
                 </field>
                 <field name="ajax" type="ajax" class="btn-group" label="Ajax" default="0" />
             </fieldset>
@@ -208,7 +211,7 @@
                 <field name="adjust_45213" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_CATA_NPC_45213">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_CATA_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_CATA_RAID_NO</option>
-                    <!--<option value="normal">MOD_WOW_RAID_PROGRESS_CATA_RAID_NORMAL</option> -->
+                    <!--<option value="normal">MOD_WOW_RAID_PROGRESS_CATA_RAID_NORMAL</option>-->
                     <option value="heroic">MOD_WOW_RAID_PROGRESS_CATA_RAID_HEROIC</option>
                 </field>
                 <field type="spacer" class="label" label="MOD_WOW_RAID_PROGRESS_CATA_ZONE_5638" />
@@ -260,6 +263,25 @@
                     <option value="no">MOD_WOW_RAID_PROGRESS_CATA_RAID_NO</option>
                     <option value="normal">MOD_WOW_RAID_PROGRESS_CATA_RAID_NORMAL</option>
                     <option value="heroic">MOD_WOW_RAID_PROGRESS_CATA_RAID_HEROIC</option>
+                </field>
+                <field type="spacer" class="label" label="MOD_WOW_RAID_PROGRESS_CATA_ZONE_5600" />
+                <field name="adjust_47120" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_CATA_NPC_47120">
+                    <option value="auto">MOD_WOW_RAID_PROGRESS_CATA_RAID_AUTO</option>
+                    <option value="no">MOD_WOW_RAID_PROGRESS_CATA_RAID_NO</option>
+                    <option value="normal">MOD_WOW_RAID_PROGRESS_CATA_RAID_NORMAL</option>
+                    <!--<option value="heroic">MOD_WOW_RAID_PROGRESS_CATA_RAID_HEROIC</option>-->
+                </field>
+                <field name="adjust_52363" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_CATA_NPC_52363">
+                    <option value="auto">MOD_WOW_RAID_PROGRESS_CATA_RAID_AUTO</option>
+                    <option value="no">MOD_WOW_RAID_PROGRESS_CATA_RAID_NO</option>
+                    <option value="normal">MOD_WOW_RAID_PROGRESS_CATA_RAID_NORMAL</option>
+                    <!--<option value="heroic">MOD_WOW_RAID_PROGRESS_CATA_RAID_HEROIC</option>-->
+                </field>
+                <field name="adjust_55869" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_CATA_NPC_55869">
+                    <option value="auto">MOD_WOW_RAID_PROGRESS_CATA_RAID_AUTO</option>
+                    <option value="no">MOD_WOW_RAID_PROGRESS_CATA_RAID_NO</option>
+                    <option value="normal">MOD_WOW_RAID_PROGRESS_CATA_RAID_NORMAL</option>
+                    <!--<option value="heroic">MOD_WOW_RAID_PROGRESS_CATA_RAID_HEROIC</option>-->
                 </field>
             </fieldset>
         </fields>
