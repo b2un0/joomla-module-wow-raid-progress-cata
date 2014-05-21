@@ -62,7 +62,6 @@
                     <option value="5638">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5638</option>
                     <option value="5094">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5094</option>
                     <option value="5600">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5600</option>
-
                 </field>
                 <field name="ajax" type="ajax" class="btn-group" label="Ajax" default="0" />
             </fieldset>
