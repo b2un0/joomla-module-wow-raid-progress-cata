@@ -3,16 +3,17 @@
 /**
  * @author     Branko Wilhelm <branko.wilhelm@gmail.com>
  * @link       http://www.z-index.net
- * @copyright  (c) 2013 - 2014 Branko Wilhelm
+ * @copyright  (c) 2013 - 2015 Branko Wilhelm
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 defined('_JEXEC') or die;
 
-final class ModWowRaidProgressCataHelper
+class ModWowRaidProgressCataHelper extends WoWModuleAbstract
 {
-
-    private $params = null;
+    /**
+     * @var array
+     */
     private $raids = array(
         // Dragon Soul
         5892 => array(
@@ -244,69 +245,21 @@ final class ModWowRaidProgressCataHelper
         ),
     );
 
-    private function __construct(JRegistry &$params)
+    protected function getInternalData()
     {
-        if (version_compare(JVERSION, 3, '>=')) {
-            $params->set('guild', rawurlencode(JString::strtolower($params->get('guild'))));
-            $params->set('realm', rawurlencode(JString::strtolower($params->get('realm'))));
-        } else {
-            $params->set('realm', str_replace(array('%20', ' '), '-', $params->get('realm')));
-            $params->set('guild', str_replace(array('%20', ' '), '%2520', $params->get('guild')));
-        }
-
-        $params->set('region', JString::strtolower($params->get('region')));
-        $params->set('lang', JString::strtolower($params->get('lang', 'en')));
-        $params->set('link', $params->get('link', 'battle.net'));
-
-        $this->params = $params;
-    }
-
-    public static function getAjax()
-    {
-        $module = JModuleHelper::getModule('mod_' . JFactory::getApplication()->input->get('module'));
-
-        if (empty($module)) {
-            return false;
-        }
-
-        JFactory::getLanguage()->load($module->module);
-
-        $params = new JRegistry($module->params);
-        $params->set('ajax', 0);
-
-        ob_start();
-
-        require(dirname(__FILE__) . '/' . $module->module . '.php');
-
-        return ob_get_clean();
-    }
-
-    public static function getData(JRegistry &$params)
-    {
-        if ($params->get('ajax')) {
-            return;
-        }
-
-        $instance = new self($params);
-
-        return $instance->getRaids();
-    }
-
-    public function getRaids()
-    {
-        if ($this->params->get('mode') == 'auto') {
-            $url = 'http://' . $this->params->get('region') . '.battle.net/api/wow/guild/' . $this->params->get('realm') . '/' . $this->params->get('guild') . '?fields=members,achievements';
-
-            $result = $this->remoteContent($url);
-
-            if (!is_object($result)) {
-                return $result;
+        if ($this->params->module->get('mode') == 'auto') {
+            try {
+                $result = WoW::getInstance()->getAdapter('WoWAPI')->getData('members');
+            } catch (Exception $e) {
+                return $e->getMessage();
             }
 
-            $this->checkNormal($result->achievements);
+            if (isset($result->body->achievements) && is_object($result->body->achievements)) {
+                $this->checkNormal($result->body->achievements);
+            }
 
-            if ($this->params->get('heroic') && $this->params->get('ranks')) {
-                $this->checkHeroic($result->members);
+            if ($this->params->module->get('heroic') && $this->params->module->get('ranks')) {
+                $this->checkHeroic($result->body->members);
             } else {
                 // remove Sinestra if only normal mode visible
                 if (isset($this->raids[5334])) {
@@ -315,7 +268,7 @@ final class ModWowRaidProgressCataHelper
             }
         }
 
-        if ($hidden = $this->params->get('hide')) {
+        if ($hidden = $this->params->module->get('hide')) {
             foreach ($hidden as $hide) {
                 unset($this->raids[$hide]);
             }
@@ -346,41 +299,13 @@ final class ModWowRaidProgressCataHelper
                 $zone['stats']['mode'] = 'heroic';
             }
 
-            $zone['opened'] = in_array($zoneId, (array)$this->params->get('opened'));
+            $zone['opened'] = in_array($zoneId, (array)$this->params->module->get('opened'));
 
             $zone['stats']['bosses'] = count($zone['npcs']);
             $zone['stats']['percent'] = round(($zone['stats']['kills'] / $zone['stats']['bosses']) * 100);
         }
 
         return $this->raids;
-    }
-
-    private function remoteContent($url)
-    {
-        $cache = JFactory::getCache('wow', 'output');
-        $cache->setCaching(1);
-        $cache->setLifeTime($this->params->get('cache_time', 24) * 60 * 60 + rand(0, 60)); // randomize cache time a little bit for each url
-
-        $key = md5($url);
-
-        if (!$result = $cache->get($key)) {
-            try {
-                $http = JHttpFactory::getHttp();
-                $http->setOption('userAgent', 'Joomla! ' . JVERSION . '; WoW Raid Progress - Cata; php/' . phpversion());
-
-                $result = $http->get($url, null, $this->params->get('timeout', 10));
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-
-            $cache->store($result, $key);
-        }
-
-        if ($result->code != 200) {
-            return __CLASS__ . ' HTTP-Status ' . JHtml::_('link', 'http://wikipedia.org/wiki/List_of_HTTP_status_codes#' . $result->code, $result->code, array('target' => '_blank'));
-        }
-
-        return json_decode($result->body);
     }
 
     private function checkNormal(stdClass $achievements)
@@ -396,8 +321,8 @@ final class ModWowRaidProgressCataHelper
     {
         $heroicIds = $this->getHeroicIDs();
         foreach ($members as &$member) {
-            if (in_array($member->rank, $this->params->get('ranks'))) {
-                $member->achievements = $this->loadMember($member->character->name);
+            if (in_array($member->rank, $this->params->module->get('ranks'))) {
+                $member->achievements = $this->loadMember($member->character->name, $member->character->realm);
                 if ($member->achievements) {
                     foreach ($heroicIds as $id => $zoneNpc) {
                         list ($npc, $zone) = explode(':', $zoneNpc, 2);
@@ -411,7 +336,7 @@ final class ModWowRaidProgressCataHelper
 
         foreach ($this->raids as &$zone) {
             foreach ($zone['npcs'] as &$npc) {
-                $npc['heroic'] = (bool)($npc['heroic'] >= $this->params->get('successful', 5));
+                $npc['heroic'] = (bool)($npc['heroic'] >= $this->params->module->get('successful', 5));
             }
         }
     }
@@ -428,17 +353,24 @@ final class ModWowRaidProgressCataHelper
         return $result;
     }
 
-    private function loadMember($name)
+    /**
+     * @param $member
+     * @param $realm
+     * @return bool|string
+     */
+    private function loadMember($member, $realm)
     {
-        $url = 'http://' . $this->params->get('region') . '.battle.net/api/wow/character/' . $this->params->get('realm') . '/' . $name . '?fields=achievements';
+        try {
+            $result = WoW::getInstance()->getAdapter('WoWAPI')->getMember($member, $realm);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
 
-        $result = $this->remoteContent($url);
-
-        if (!is_object($result) || !isset($result->achievements)) {
+        if (!is_object($result->body) || !isset($result->body->achievements)) {
             return false;
         }
 
-        return $result->achievements;
+        return $result->body->achievements;
     }
 
     private function adjustments()
@@ -448,7 +380,7 @@ final class ModWowRaidProgressCataHelper
                 if ($npc['heroic'] === true || $npc['normal'] === true) {
                     continue;
                 }
-                switch ($this->params->get('adjust_' . $npcId)) {
+                switch ($this->params->module->get('adjust_' . $npcId)) {
                     default:
                         continue;
                         break;
@@ -470,18 +402,22 @@ final class ModWowRaidProgressCataHelper
         }
     }
 
+    /**
+     * @param $link
+     * @param $id
+     * @param bool $npc
+     * @return string
+     */
     private function link($link, $id, $npc = false)
     {
         if ($npc) {
-            $sites['battle.net'] = 'http://' . $this->params->get('region') . '.battle.net/wow/' . $this->params->get('lang') . '/' . $link;
-            $sites['wowhead.com'] = 'http://' . $this->params->get('lang') . '.wowhead.com/npc=' . $id;
-            $sites['wowdb.com'] = 'http://www.wowdb.com/npcs/' . $id;
+            $sites['battle.net'] = 'http://' . $this->params->global->get('region') . '.battle.net/wow/' . $this->params->global->get('locale') . '/' . $link;
+            $sites['wowhead.com'] = 'http://' . $this->params->global->get('locale') . '.wowhead.com/npc=' . $id;
         } else {
-            $sites['battle.net'] = 'http://' . $this->params->get('region') . '.battle.net/wow/' . $this->params->get('lang') . '/' . $link;
-            $sites['wowhead.com'] = 'http://' . $this->params->get('lang') . '.wowhead.com/zone=' . $id;
-            $sites['wowdb.com'] = 'http://www.wowdb.com/zones/' . $id;
+            $sites['battle.net'] = 'http://' . $this->params->global->get('region') . '.battle.net/wow/' . $this->params->global->get('locale') . '/' . $link;
+            $sites['wowhead.com'] = 'http://' . $this->params->global->get('locale') . '.wowhead.com/zone=' . $id;
         }
 
-        return $sites[$this->params->get('link')];
+        return $sites[$this->params->global->get('link')];
     }
 }

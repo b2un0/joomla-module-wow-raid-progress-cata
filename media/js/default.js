@@ -9,8 +9,8 @@ window.wow.mod_wow_raid_progress_cata = function () {
             jQuery(this).next('li').slideToggle('slow');
         }
     });
-}
+};
 
-if (jQuery) {
+if (typeof jQuery != 'undefined') {
     jQuery(document).ready(window.wow.mod_wow_raid_progress_cata);
 }
