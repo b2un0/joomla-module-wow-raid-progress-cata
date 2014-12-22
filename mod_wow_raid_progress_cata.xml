@@ -32,7 +32,7 @@
     <config>
         <fields name="params" addfieldpath="/plugins/system/wow/fields/">
             <fieldset name="basic">
-                <field name="opened" type="list" default="6738" multiple="true" label="MOD_WOW_RAID_PROGRESS_CATA_OPENED_LABEL" description="MOD_WOW_RAID_PROGRESS_CATA_OPENED_DESC">
+                <field name="collapsed" type="list" default="6738" multiple="true" label="MOD_WOW_RAID_PROGRESS_CATA_COLLAPSED_LABEL" description="MOD_WOW_RAID_PROGRESS_CATA_COLLAPSED_DESC">
                     <option value="5892">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5892</option>
                     <option value="5723">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5723</option>
                     <option value="5334">MOD_WOW_RAID_PROGRESS_CATA_ZONE_5334</option>
@@ -64,7 +64,7 @@
                 <field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
                 <field name="moduleclass_sfx" type="text" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
             </fieldset>
-            <fieldset name="adjustments" label="MOD_WOW_RAID_PROGRESS_CAT_ADJUSTMENT_LABEL">
+            <fieldset name="adjustments" label="MOD_WOW_RAID_PROGRESS_CATA_ADJUSTMENT_LABEL">
                 <field type="spacer" class="label" label="MOD_WOW_RAID_PROGRESS_CATA_ZONE_5892" />
                 <field name="adjust_55265" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_CATA_NPC_55265">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_CATA_RAID_AUTO</option>
